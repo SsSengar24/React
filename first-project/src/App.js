@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import Form from "./components/Form";
+import TodoList from "./components/TodoList";
 
 const App = () => {
 
@@ -14,7 +16,7 @@ const App = () => {
       temp.forEach((todoA) => {
         console.log('todo', todo)
         console.log('edit id', editId)
-        if (todoA.id == editId) {
+        if (todoA.id === editId) {
           todoA.todo = todo;
         }
       })
@@ -45,21 +47,8 @@ const App = () => {
     <div className="App">
       <div className="container">
       <h1>Todo List App</h1>
-          <form className="todoForm" onSubmit={handleSubmit}>
-              <input type="text" value={todo} onChange={(event)=>setTodo(event.target.value)}></input>
-          <button type="submit">{editId ? "Edit" : "Go"}</button>
-          </form>
-        <ul className="allTodos">
-          {
-            todos.map((item) => (
-              <li className="singleTodo">
-                <span className="todoText" key={item.id}>{item.todo}</span>
-              <button onClick={()=>handleEdit(item.id)}>Edit</button>
-              <button onClick={()=>handleDelete(item.id)}>Delete</button>
-            </li>
-          ))
-          }
-          </ul>
+        <Form handleSubmit={handleSubmit} todo={todo} editId={editId} setTodo={setTodo} />
+        <TodoList todos={todos} handleEdit={handleEdit} handleDelete={handleDelete} />
       </div>
     </div>
   );
